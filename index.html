@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stacked — Stack your habits. Stack your wealth.</title>
+<meta name="description" content="Stacked — turn your money goals into daily habits.">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Stacked — Stack your habits. Stack your wealth.">
+<meta property="og:description" content="Stacked — turn your money goals into daily habits.">
+<meta property="og:site_name" content="Stacked">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Stacked — Stack your habits. Stack your wealth.">
+<meta name="twitter:description" content="Stacked — turn your money goals into daily habits.">
+<meta name="theme-color" content="#5DA074">
+
+<!-- Favicon / app icon -->
+<link rel="icon" type="image/png" href="appicon.png">
+<link rel="apple-touch-icon" href="appicon.png">
+<meta property="og:image" content="appicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+/* ============ Tokens ============ */
+:root{
+  --sage:#5DA074;
+  --sage-deep:#4A8560;
+  --white:#FFFFFF;
+  --off-white:#F4F7F5;
+  --ink:#121212;
+  --ink-green:#071402;
+  --lime:#48D300;
+  --azure:#0BB5FF;
+
+  --screen:#181A18;       /* app-screen card surfaces on ink */
+  --screen-soft:#222522;
+
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --r-sm:12px; --r-md:18px; --r-lg:28px; --r-pill:999px;
+  --shadow-sm:0 2px 10px rgba(18,18,18,.06);
+  --shadow-md:0 10px 32px rgba(18,18,18,.10);
+  --shadow-lg:0 28px 64px rgba(7,20,2,.28);
+  --nav-h:76px;
+}
+
+/* ============ Reset / base ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 16px)}
+body{
+  font-family:var(--font);
+  color:var(--ink);
+  background:var(--white);
+  line-height:1.6;
+  font-size:1rem;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+ul{list-style:none}
+::selection{background:var(--sage);color:var(--white)}
+
+.container{width:min(1140px,100% - 3rem);margin-inline:auto}
+
+.skip-link{
+  position:absolute;left:1rem;top:-100px;z-index:200;
+  background:var(--ink);color:var(--white);
+  padding:.6rem 1.1rem;border-radius:var(--r-pill);transition:top .2s;
+}
+.skip-link:focus{top:1rem}
+
+/* ============ Type ============ */
+h1,h2,h3{font-weight:800;letter-spacing:-0.035em;line-height:1.05;text-wrap:balance}
+.display{font-size:clamp(2.75rem,6.4vw,5rem);font-weight:900;letter-spacing:-0.04em}
+.h2{font-size:clamp(2rem,4.2vw,3.1rem)}
+.h3{font-size:clamp(1.35rem,2.4vw,1.75rem);line-height:1.15}
+.lead{font-size:clamp(1.05rem,1.6vw,1.25rem);line-height:1.6;max-width:60ch}
+.body-copy{max-width:60ch;line-height:1.65;font-weight:500}
+.muted{opacity:.72}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+}
+.eyebrow::before{content:"";width:22px;height:2px;background:currentColor;border-radius:2px}
+
+/* ============ Buttons ============ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  padding:.95rem 1.75rem;border-radius:var(--r-pill);
+  font-weight:700;font-size:.98rem;letter-spacing:-0.01em;line-height:1;
+  transition:transform .25s cubic-bezier(.2,.7,.3,1),box-shadow .25s,background .25s,color .25s,border-color .25s;
+  will-change:transform;
+}
+.btn:active{transform:scale(.98)}
+.btn-black{background:var(--ink);color:var(--white)}
+.btn-black:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(18,18,18,.28)}
+/* the ONE lime moment on a CTA: a soft hover glow on the hero primary button */
+.btn-glow:hover{box-shadow:0 12px 28px rgba(18,18,18,.24),0 6px 34px rgba(72,211,0,.32)}
+.btn-ghost{border:2px solid var(--ink);color:var(--ink);background:transparent}
+.btn-ghost:hover{background:var(--ink);color:var(--white);transform:translateY(-2px)}
+.btn-white{background:var(--white);color:var(--ink)}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.3)}
+.btn-outline-ink{border:2px solid rgba(18,18,18,.25);color:var(--ink)}
+.btn-outline-ink:hover{border-color:var(--ink);transform:translateY(-2px)}
+
+/* ============ Reveal on scroll ============ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1);transition-delay:var(--d,0s)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ Nav ============ */
+.site-nav{
+  position:fixed;inset:0 0 auto 0;z-index:100;height:var(--nav-h);
+  display:flex;align-items:center;
+  transition:background .35s,box-shadow .35s,backdrop-filter .35s;
+}
+.site-nav.scrolled{
+  background:rgba(244,247,245,.9);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  box-shadow:0 1px 0 rgba(18,18,18,.07),var(--shadow-sm);
+}
+.nav-inner{display:flex;align-items:center;gap:2rem;width:min(1140px,100% - 3rem);margin-inline:auto}
+.wordmark{display:inline-flex;align-items:center;gap:.55rem;font-weight:900;font-size:1.3rem;letter-spacing:-0.03em}
+.wordmark img{width:34px;height:34px;flex:none}
+.nav-links{display:flex;align-items:center;gap:2rem;margin-left:auto}
+.nav-links a{font-weight:600;font-size:.95rem;opacity:.85;transition:opacity .2s}
+.nav-links a:hover{opacity:1}
+.nav-cta{margin-left:.5rem}
+.nav-cta .btn{padding:.7rem 1.4rem;font-size:.9rem}
+.nav-toggle{display:none;margin-left:auto;width:44px;height:44px;border-radius:12px;place-items:center;place-content:center}
+.nav-toggle span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;transition:transform .3s,opacity .3s}
+.nav-toggle span + span{margin-top:5px}
+.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-open .nav-toggle span:nth-child(2){opacity:0}
+.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ============ Hero ============ */
+.hero{
+  background:linear-gradient(180deg,var(--sage) 0%,var(--sage) 78%,var(--sage-deep) 100%);
+  padding:calc(var(--nav-h) + clamp(3rem,7vw,5.5rem)) 0 clamp(3.5rem,7vw,6rem);
+  position:relative;overflow:hidden;
+}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+.hero-pill{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);
+  color:var(--white);font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;
+  padding:.45rem 1rem;border-radius:var(--r-pill);margin-bottom:1.5rem;
+}
+.hero h1{color:var(--white);margin-bottom:1.35rem}
+.hero h1 .line-ink{color:var(--ink)}
+.hero .lead{color:var(--ink);font-weight:600;margin-bottom:2.2rem}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:.9rem;margin-bottom:1.6rem}
+.hero .btn-ghost{border-color:var(--white);color:var(--white)}
+.hero .btn-ghost:hover{background:var(--white);color:var(--ink)}
+.hero-rating{display:flex;align-items:center;gap:.6rem;font-size:.9rem;font-weight:600;color:var(--ink)}
+.hero-rating .stars{display:flex;gap:2px}
+.hero-rating .stars svg{width:15px;height:15px;fill:var(--ink)}
+
+/* Phone mockup */
+.hero-visual{position:relative;display:flex;justify-content:center}
+.phone{
+  width:min(330px,82vw);
+  background:var(--ink);
+  border-radius:46px;
+  padding:12px;
+  box-shadow:var(--shadow-lg),inset 0 0 0 2px rgba(255,255,255,.08);
+  position:relative;z-index:2;
+  animation:float 7s ease-in-out infinite;
+}
+.screen{
+  background:var(--ink);
+  border-radius:36px;overflow:hidden;
+  padding:14px 18px 20px;
+  color:var(--white);
+  position:relative;
+}
+.notch{width:112px;height:26px;background:#000;border-radius:var(--r-pill);margin:2px auto 10px}
+.statusbar{display:flex;justify-content:space-between;align-items:center;font-size:.72rem;font-weight:700;opacity:.85;margin-bottom:14px}
+.sb-icons{display:flex;gap:5px;align-items:center}
+.sb-icons svg{height:10px;width:auto;fill:var(--white)}
+.screen-date{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);margin-bottom:2px}
+.screen-title{font-size:1.35rem;font-weight:800;letter-spacing:-0.03em;margin-bottom:14px}
+
+.score-card{
+  background:var(--screen);border-radius:20px;padding:14px;
+  display:flex;align-items:center;gap:14px;margin-bottom:12px;
+}
+.ring{width:84px;height:84px;flex:none}
+.ring .track{stroke:#2C302C;stroke-width:8;fill:none}
+.ring .prog{stroke:var(--sage);stroke-width:8;fill:none;stroke-linecap:round;stroke-dasharray:213.6;stroke-dashoffset:59.8}
+.ring text{fill:var(--white);font-weight:800;font-size:24px;letter-spacing:-1px}
+.score-meta{display:flex;flex-direction:column;gap:5px;min-width:0}
+.score-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.6}
+.score-delta{font-size:.85rem;font-weight:700;color:var(--sage)}
+.streak{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;font-weight:700;background:var(--screen-soft);border-radius:var(--r-pill);padding:5px 12px 5px 8px;width:max-content}
+.streak svg{width:13px;height:15px;fill:var(--lime)} /* lime: streak flame */
+
+.goal-chip{
+  background:var(--screen);border-radius:16px;padding:11px 14px;margin-bottom:14px;
+}
+.goal-chip .gc-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.goal-chip .gc-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.55}
+.goal-chip .gc-name{font-size:.88rem;font-weight:700}
+.goal-bar{height:6px;border-radius:6px;background:#2C302C;overflow:hidden}
+.goal-bar i{display:block;height:100%;width:45%;border-radius:6px;background:var(--sage)}
+
+.steps-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.6;margin-bottom:8px}
+.step{
+  display:flex;align-items:center;gap:11px;
+  background:var(--screen);border-radius:14px;padding:11px 12px;margin-bottom:8px;
+}
+.step:last-child{margin-bottom:0}
+.tick{
+  width:22px;height:22px;border-radius:50%;flex:none;
+  border:2px solid #3A3F3A;display:grid;place-items:center;
+}
+.step.done .tick{border-color:var(--lime);background:rgba(72,211,0,.12)} /* lime: done ticks */
+.step.done .tick svg{width:11px;height:11px;stroke:var(--lime);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.step-body{min-width:0}
+.step-title{font-size:.83rem;font-weight:600;line-height:1.3}
+.step.done .step-title{opacity:.55;text-decoration:line-through;text-decoration-thickness:1px}
+.step-meta{display:inline-flex;align-items:center;gap:4px;font-size:.68rem;font-weight:600;opacity:.55;margin-top:2px}
+.step-meta svg{width:9px;height:9px;fill:currentColor}
+
+.hero-mascot{
+  position:absolute;z-index:3;
+  width:clamp(72px,9vw,104px);height:auto;
+  right:calc(50% - min(165px,41vw) - clamp(30px,4vw,52px));
+  bottom:-4px;
+  filter:drop-shadow(0 14px 24px rgba(7,20,2,.3));
+  animation:float 8s ease-in-out infinite;
+  animation-delay:-3s;
+}
+
+/* Confetti */
+.confetti{position:absolute;inset:0;pointer-events:none;z-index:1}
+.confetti span{position:absolute;border-radius:3px;opacity:.85;animation:drift var(--t,9s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+.c-dot{border-radius:50% !important}
+.c1{width:12px;height:12px;background:var(--white);top:12%;left:6%;--t:8s}
+.c2{width:8px;height:8px;background:var(--sage-deep);top:24%;right:10%;--t:10s;--dl:-2s}
+.c3{width:14px;height:14px;background:rgba(255,255,255,.5);bottom:20%;left:12%;--t:11s;--dl:-4s}
+.c4{width:7px;height:7px;background:var(--white);top:56%;right:5%;--t:9s;--dl:-1s}
+.c5{width:9px;height:9px;background:var(--sage-deep);bottom:12%;right:22%;--t:12s;--dl:-5s}
+.c6{width:10px;height:10px;background:rgba(255,255,255,.65);top:8%;right:32%;--t:10s;--dl:-3s}
+.c7{width:8px;height:8px;background:var(--lime);top:38%;left:2%;--t:9s;--dl:-2.5s}   /* lime confetti (1) */
+.c8{width:7px;height:7px;background:var(--azure);bottom:30%;right:14%;--t:11s;--dl:-6s} /* azure confetti (1) */
+
+@keyframes float{0%,100%{transform:translateY(0) rotate(-1.2deg)}50%{transform:translateY(-14px) rotate(.6deg)}}
+@keyframes drift{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(-26px) rotate(38deg)}}
+
+/* ============ Stats bar ============ */
+.stats{background:var(--white);border-bottom:1px solid rgba(18,18,18,.07);padding:1.6rem 0}
+.stats-row{display:flex;flex-wrap:wrap;justify-content:center;column-gap:clamp(1.5rem,5vw,4rem);row-gap:.9rem}
+.stat{display:flex;align-items:center;gap:.6rem;font-weight:700;font-size:.95rem;letter-spacing:-0.01em}
+.stat i{width:8px;height:8px;border-radius:50%;background:var(--sage);flex:none}
+.stat.stat-azure i{background:var(--azure)} /* azure: single stat highlight dot */
+
+/* ============ Statement ============ */
+.statement{
+  background:radial-gradient(120% 140% at 50% 0%,var(--ink) 0%,var(--ink-green) 100%);
+  color:var(--white);
+  padding:clamp(6rem,13vw,10.5rem) 0;text-align:center;
+}
+.statement .eyebrow{color:var(--sage);justify-content:center;margin-bottom:2rem}
+.statement .eyebrow::before{background:var(--sage)}
+.statement blockquote{
+  font-size:clamp(1.9rem,4.6vw,3.6rem);font-weight:800;letter-spacing:-0.035em;line-height:1.15;
+  max-width:20ch;margin:0 auto 2rem;text-wrap:balance;
+}
+.statement blockquote em{font-style:normal;color:var(--sage)}
+.statement p{max-width:46ch;margin-inline:auto;font-weight:500;opacity:.75}
+
+/* ============ How it works ============ */
+.how{background:var(--off-white);padding:clamp(5rem,10vw,8rem) 0}
+.section-head{max-width:640px;margin-bottom:clamp(2.5rem,5vw,4rem)}
+.section-head .eyebrow{color:var(--sage-deep);margin-bottom:1.1rem}
+.section-head p{margin-top:1rem;font-weight:500;opacity:.8}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.how-card{
+  background:var(--white);border-radius:var(--r-lg);padding:2.2rem 1.9rem 2rem;
+  box-shadow:var(--shadow-sm);
+  transition:transform .3s cubic-bezier(.2,.7,.3,1),box-shadow .3s;
+}
+.how-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
+.how-num{
+  font-size:.8rem;font-weight:800;letter-spacing:.12em;color:var(--sage-deep);
+  display:inline-block;margin-bottom:1.4rem;
+  border:1.5px solid rgba(74,133,96,.4);border-radius:var(--r-pill);padding:.35rem .85rem;
+}
+.how-card h3{margin-bottom:.7rem}
+.how-card p{font-weight:500;opacity:.8;font-size:.97rem;margin-bottom:1.2rem}
+.how-check{display:flex;align-items:center;gap:.55rem;font-size:.88rem;font-weight:700}
+.how-check svg{width:17px;height:17px;flex:none}
+.how-check svg circle{fill:rgba(72,211,0,.14)}
+.how-check svg path{stroke:var(--sage-deep);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.how-check.lime svg path{stroke:var(--lime)} /* lime: the small green ticks in this section */
+
+/* ============ Features ============ */
+.features{background:var(--white);padding:clamp(5rem,10vw,8rem) 0}
+.feature-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,6vw,5.5rem);
+  align-items:center;
+  padding:clamp(2.5rem,6vw,4.5rem) 0;
+}
+.feature-row + .feature-row{border-top:1px solid rgba(18,18,18,.07)}
+.feature-copy .eyebrow{color:var(--sage-deep);margin-bottom:1rem}
+.feature-copy h3{margin-bottom:1rem}
+.feature-copy p{font-weight:500;opacity:.82;margin-bottom:1.4rem;max-width:48ch}
+.feature-list li{display:flex;align-items:center;gap:.6rem;font-weight:600;font-size:.93rem;margin-bottom:.55rem}
+.feature-list svg{width:16px;height:16px;flex:none}
+.feature-list svg path{stroke:var(--sage-deep);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+.feature-panel{
+  border-radius:var(--r-lg);
+  min-height:380px;
+  display:grid;place-items:center;
+  padding:clamp(1.8rem,4vw,3rem);
+  overflow:hidden;position:relative;
+}
+.panel-sage{background:linear-gradient(160deg,var(--sage),var(--sage-deep))}
+.panel-ink{background:linear-gradient(160deg,var(--ink),var(--ink-green))}
+.panel-light{background:var(--off-white);border:1px solid rgba(93,160,116,.25)}
+.panel-deep{background:linear-gradient(200deg,var(--sage-deep),var(--sage))}
+.feature-row:nth-child(even) .feature-copy{order:2}
+.feature-row:nth-child(even) .feature-panel{order:1}
+
+/* mini app screens inside panels */
+.mini{
+  width:min(270px,100%);
+  background:var(--ink);border-radius:26px;padding:18px 16px;
+  color:var(--white);
+  box-shadow:0 22px 48px rgba(7,20,2,.35);
+  transition:transform .4s cubic-bezier(.2,.7,.3,1);
+}
+.feature-panel:hover .mini{transform:translateY(-6px) rotate(-.5deg)}
+.mini-label{font-size:.64rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);margin-bottom:4px}
+.mini-title{font-size:1.02rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:13px}
+.mini-row{
+  background:var(--screen);border-radius:13px;padding:10px 12px;margin-bottom:8px;
+  display:flex;align-items:center;gap:10px;
+}
+.mini-row:last-child{margin-bottom:0}
+.mini-row .txt{min-width:0;flex:1}
+.mini-row .t1{font-size:.78rem;font-weight:700;line-height:1.3}
+.mini-row .t2{font-size:.66rem;font-weight:600;opacity:.55;margin-top:1px}
+.mini-badge{font-size:.62rem;font-weight:700;background:var(--screen-soft);padding:3px 8px;border-radius:var(--r-pill);flex:none;opacity:.9}
+.mini-badge.sage{background:rgba(93,160,116,.25);color:#A8CDB5}
+.wk-dot{width:20px;height:20px;border-radius:50%;flex:none;border:2px solid #3A3F3A;display:grid;place-items:center}
+.wk-dot.done{border-color:var(--sage);background:rgba(93,160,116,.18)}
+.wk-dot.done svg{width:10px;height:10px;stroke:var(--sage);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.wk-dot.now{border-color:var(--white)}
+.wk-dot.now i{width:7px;height:7px;border-radius:50%;background:var(--white)}
+.play-thumb{
+  width:44px;height:32px;border-radius:8px;flex:none;
+  background:var(--screen-soft);display:grid;place-items:center;
+}
+.play-thumb svg{width:11px;height:11px;fill:var(--sage)}
+.mini-action{
+  background:var(--screen);border-radius:16px;padding:15px 14px;margin-bottom:10px;
+}
+.mini-action .t1{font-size:.9rem;font-weight:700;line-height:1.35;margin-bottom:4px}
+.mini-action .t2{font-size:.7rem;font-weight:600;opacity:.55;margin-bottom:12px}
+.mini-btn{
+  display:block;width:100%;text-align:center;
+  background:var(--sage);color:var(--ink);font-weight:800;font-size:.8rem;
+  border-radius:var(--r-pill);padding:9px 0;
+}
+.mini-week{display:flex;justify-content:space-between;margin:12px 2px 4px}
+.mini-week .day{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:.58rem;font-weight:700;opacity:.85}
+.mini-week .day i{width:16px;height:16px;border-radius:50%;background:#2C302C}
+.mini-week .day.on i{background:var(--sage)}
+.mini-week .day.today i{background:transparent;display:grid;place-items:center}
+.mini-week .day.today svg{width:12px;height:14px;fill:var(--lime)} /* lime: today's flame */
+.mini-bars{display:flex;align-items:flex-end;gap:6px;height:56px;margin-top:12px;padding:0 2px}
+.mini-bars i{flex:1;border-radius:4px 4px 2px 2px;background:#2C302C}
+.mini-bars i.f{background:var(--sage)}
+
+/* ============ Pricing ============ */
+.pricing{background:linear-gradient(180deg,var(--sage),var(--sage-deep));padding:clamp(5rem,10vw,8rem) 0}
+.pricing .section-head{margin-inline:auto;text-align:center;max-width:560px}
+.pricing .section-head .eyebrow{color:var(--white);justify-content:center}
+.pricing .section-head .eyebrow::before{background:var(--white)}
+.pricing .section-head h2{color:var(--white)}
+.pricing .section-head p{color:var(--ink);opacity:.85}
+.price-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.4rem;max-width:840px;margin-inline:auto}
+.price-card{
+  border-radius:var(--r-lg);padding:2.4rem 2.1rem;
+  display:flex;flex-direction:column;
+  transition:transform .3s cubic-bezier(.2,.7,.3,1),box-shadow .3s;
+}
+.price-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
+.price-week{background:var(--white);color:var(--ink)}
+.price-year{background:var(--ink);color:var(--white);border:2px solid var(--sage-deep);position:relative;box-shadow:var(--shadow-md)}
+.badge{
+  position:absolute;top:-14px;right:1.8rem;
+  background:var(--sage);color:var(--ink);
+  font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  padding:.35rem .9rem;border-radius:var(--r-pill);
+}
+.plan-name{font-size:1.05rem;font-weight:800;letter-spacing:-0.01em;margin-bottom:.4rem}
+.plan-price{font-size:2.6rem;font-weight:900;letter-spacing:-0.04em;line-height:1;margin-bottom:.35rem}
+.plan-price span{font-size:1rem;font-weight:600;letter-spacing:0;opacity:.6}
+.plan-sub{font-size:.85rem;font-weight:600;opacity:.65;margin-bottom:1.6rem}
+.plan-list{margin-bottom:2rem;flex:1}
+.plan-list li{display:flex;align-items:center;gap:.65rem;font-size:.93rem;font-weight:600;padding:.42rem 0}
+.plan-list svg{width:16px;height:16px;flex:none}
+.plan-list svg path{stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.price-week .plan-list svg path{stroke:var(--sage-deep)}
+.price-year .plan-list svg path{stroke:var(--lime)} /* lime: tiny ticks on the featured plan only */
+.price-note{text-align:center;color:var(--ink);font-size:.85rem;font-weight:600;opacity:.8;margin-top:1.6rem}
+
+/* ============ Testimonials ============ */
+.testimonials{background:var(--off-white);padding:clamp(5rem,10vw,8rem) 0}
+.testi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.testi-card{
+  background:var(--white);border-radius:var(--r-md);padding:1.7rem 1.5rem;
+  box-shadow:var(--shadow-sm);
+  display:flex;flex-direction:column;gap:1.1rem;
+  transition:transform .3s cubic-bezier(.2,.7,.3,1),box-shadow .3s;
+}
+.testi-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
+.testi-stars{display:flex;gap:2px}
+.testi-stars svg{width:13px;height:13px;fill:var(--sage)}
+.testi-card blockquote{font-size:.95rem;font-weight:600;line-height:1.55;letter-spacing:-0.01em;flex:1}
+.testi-who{display:flex;align-items:center;gap:.7rem}
+.avatar{
+  width:36px;height:36px;border-radius:50%;flex:none;
+  background:var(--ink);color:var(--white);
+  display:grid;place-items:center;font-size:.75rem;font-weight:800;
+}
+.avatar.alt{background:var(--off-white);color:var(--ink);border:1.5px solid rgba(18,18,18,.2)}
+.testi-who .name{font-size:.83rem;font-weight:700;line-height:1.2}
+.testi-who .role{font-size:.73rem;font-weight:600;opacity:.55}
+
+/* ============ FAQ ============ */
+.faq{background:var(--white);padding:clamp(5rem,10vw,8rem) 0}
+.faq-wrap{max-width:760px;margin-inline:auto}
+.faq-item{border-bottom:1px solid rgba(18,18,18,.1)}
+.faq-item:first-of-type{border-top:1px solid rgba(18,18,18,.1)}
+.faq-q{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;
+  padding:1.5rem .25rem;text-align:left;
+  font-size:clamp(1.05rem,1.8vw,1.2rem);font-weight:700;letter-spacing:-0.015em;
+  transition:opacity .2s;
+}
+.faq-q:hover{opacity:.75}
+.faq-q .chev{
+  width:34px;height:34px;flex:none;border-radius:50%;
+  border:1.5px solid rgba(18,18,18,.2);
+  display:grid;place-items:center;
+  transition:transform .35s cubic-bezier(.2,.7,.3,1),border-color .35s,background .35s;
+}
+.faq-q .chev svg{width:14px;height:14px;stroke:var(--ink);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s}
+.faq-item.open .faq-q .chev{transform:rotate(180deg);border-color:var(--lime);background:rgba(72,211,0,.08)}
+.faq-item.open .faq-q .chev svg{stroke:var(--lime)} /* lime: chevron on the OPEN state only */
+.faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.2,.7,.3,1)}
+.faq-item.open .faq-a{grid-template-rows:1fr}
+.faq-a-inner{overflow:hidden}
+.faq-a-inner p{padding:0 3.5rem 1.6rem .25rem;font-weight:500;opacity:.78;max-width:60ch}
+
+/* ============ Footer ============ */
+.footer{
+  background:radial-gradient(130% 150% at 50% 0%,var(--ink) 0%,var(--ink-green) 90%);
+  color:var(--white);
+  padding:clamp(5rem,10vw,8rem) 0 2.5rem;
+}
+.footer-cta{text-align:center;margin-bottom:clamp(3.5rem,7vw,5.5rem)}
+.footer-mascot{width:72px;height:72px;margin:0 auto 1.4rem;filter:drop-shadow(0 10px 22px rgba(0,0,0,.4))}
+.footer-cta h2{font-size:clamp(2.6rem,6.5vw,4.6rem);font-weight:900;letter-spacing:-0.04em;margin-bottom:1rem}
+.footer-cta h2 span{color:var(--sage)}
+.footer-cta p{font-weight:500;opacity:.75;margin-bottom:2.4rem}
+.store-btns{display:flex;flex-wrap:wrap;gap:.9rem;justify-content:center}
+.store-btn{
+  display:inline-flex;align-items:center;gap:.75rem;
+  border:1.5px solid rgba(255,255,255,.35);border-radius:14px;
+  padding:.7rem 1.3rem;
+  transition:transform .25s cubic-bezier(.2,.7,.3,1),background .25s,border-color .25s;
+}
+.store-btn:hover{transform:translateY(-2px);background:var(--white);border-color:var(--white);color:var(--ink)}
+.store-btn svg{width:24px;height:24px;fill:currentColor;flex:none}
+.store-btn .sb-txt{text-align:left;line-height:1.15}
+.store-btn .sb-small{display:block;font-size:.64rem;font-weight:600;opacity:.7;letter-spacing:.02em}
+.store-btn .sb-big{display:block;font-size:1rem;font-weight:700;letter-spacing:-0.01em}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.12);
+  padding-top:2.2rem;
+  display:flex;flex-wrap:wrap;align-items:center;gap:1.5rem;
+}
+.footer .wordmark{color:var(--white)}
+.footer-links{display:flex;gap:1.6rem;margin-left:auto;flex-wrap:wrap}
+.footer-links a{font-size:.88rem;font-weight:600;opacity:.7;transition:opacity .2s}
+.footer-links a:hover{opacity:1}
+.socials{display:flex;gap:.7rem}
+.socials a{
+  width:38px;height:38px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.25);
+  display:grid;place-items:center;
+  transition:background .25s,border-color .25s,transform .25s;
+}
+.socials a:hover{background:var(--white);border-color:var(--white);transform:translateY(-2px)}
+.socials a:hover svg{fill:var(--ink)}
+.socials svg{width:15px;height:15px;fill:var(--white);transition:fill .25s}
+.footer-legal{
+  width:100%;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;
+  margin-top:1.8rem;font-size:.78rem;font-weight:500;opacity:.5;
+}
+.footer-legal p{max-width:64ch}
+
+/* ============ Responsive ============ */
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:1fr;text-align:center}
+  .hero .lead{margin-inline:auto}
+  .hero-ctas,.hero-rating{justify-content:center}
+  .hero-visual{margin-top:1.5rem}
+  .how-grid{grid-template-columns:1fr;max-width:520px}
+  .feature-row{grid-template-columns:1fr}
+  .feature-row:nth-child(even) .feature-copy{order:1}
+  .feature-row:nth-child(even) .feature-panel{order:2}
+  .feature-panel{min-height:340px}
+  .testi-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:760px){
+  .nav-links{
+    position:fixed;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--off-white);
+    padding:.6rem 1.5rem 1.4rem;
+    box-shadow:var(--shadow-md);
+    transform:translateY(-12px);opacity:0;visibility:hidden;
+    transition:transform .3s,opacity .3s,visibility .3s;
+  }
+  .nav-open .nav-links{transform:none;opacity:1;visibility:visible}
+  .nav-links a{padding:.85rem 0;border-bottom:1px solid rgba(18,18,18,.07);font-size:1.05rem}
+  .nav-cta{margin:.9rem 0 0}
+  .nav-cta .btn{width:100%;padding:.95rem}
+  .nav-toggle{display:grid}
+  .site-nav.nav-open{background:var(--off-white)}
+  .price-grid{grid-template-columns:1fr}
+  .testi-grid{grid-template-columns:1fr}
+  .footer-links{margin-left:0}
+  .faq-a-inner p{padding-right:.25rem}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ NAV ============ -->
+<header class="site-nav" id="siteNav">
+  <div class="nav-inner">
+    <a href="#top" class="wordmark" aria-label="Stacked — home">
+      <img src="appicon.png" alt="" width="34" height="34">
+      Stacked
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <span class="nav-cta"><a class="btn btn-black" href="#download">Get the app</a></span>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="confetti" aria-hidden="true">
+    <span class="c1"></span><span class="c2 c-dot"></span><span class="c3"></span>
+    <span class="c4 c-dot"></span><span class="c5"></span><span class="c6 c-dot"></span>
+    <span class="c7"></span><span class="c8 c-dot"></span>
+  </div>
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="hero-pill">The iOS app for money habits</span>
+      <h1 class="display"><span class="line-ink">Stack your habits.</span><br>Stack your wealth.</h1>
+      <p class="lead">Pick a money goal. Get small daily steps, with the best videos and articles already picked for you. No jargon. No overwhelm. No pressure.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-black btn-glow" href="#download">
+          <svg width="16" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.365 12.44c-.02-2.02 1.65-2.99 1.72-3.04-.94-1.37-2.4-1.56-2.92-1.58-1.24-.13-2.42.73-3.05.73-.63 0-1.6-.71-2.63-.69-1.35.02-2.6.79-3.3 2-1.41 2.44-.36 6.05 1.01 8.03.67.97 1.47 2.06 2.52 2.02 1.01-.04 1.39-.65 2.61-.65 1.22 0 1.56.65 2.63.63 1.09-.02 1.78-.99 2.44-1.96.77-1.12 1.09-2.21 1.11-2.27-.02-.01-2.12-.81-2.14-3.22zM14.3 5.06c.56-.68.94-1.62.83-2.56-.81.03-1.79.54-2.37 1.22-.52.6-.97 1.56-.85 2.48.9.07 1.82-.46 2.39-1.14z"/></svg>
+          Download on the App Store
+        </a>
+        <a class="btn btn-ghost" href="#how">See how it works</a>
+      </div>
+      <div class="hero-rating">
+        <span class="stars" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+        </span>
+        4.9 · Loved by early stackers
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <img class="hero-mascot" src="appicon.png" alt="The Stacked mascot — a friendly sage-green coin with a flame face.">
+      <div class="phone" role="img" aria-label="Stacked app screen: a Stack Score of 72, a 12-day streak, the goal “First investment”, and today's checkable steps with two already done.">
+        <div class="screen">
+          <div class="notch" aria-hidden="true"></div>
+          <div class="statusbar" aria-hidden="true">
+            <span>9:41</span>
+            <span class="sb-icons">
+              <svg viewBox="0 0 16 10"><rect x="0" y="6" width="2.6" height="4" rx=".8"/><rect x="4.2" y="4" width="2.6" height="6" rx=".8"/><rect x="8.4" y="2" width="2.6" height="8" rx=".8"/><rect x="12.6" y="0" width="2.6" height="10" rx=".8"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 18.5a1.8 1.8 0 110 3.6 1.8 1.8 0 010-3.6zm0-5.4c2 0 3.9.8 5.3 2.1l-2 2a4.7 4.7 0 00-6.6 0l-2-2a7.5 7.5 0 015.3-2.1zm0-5.3c3.5 0 6.7 1.4 9 3.6l-2 2A9.7 9.7 0 0012 10.6c-2.7 0-5.2 1.1-7 2.8l-2-2c2.3-2.2 5.5-3.6 9-3.6z"/></svg>
+              <svg viewBox="0 0 25 12"><rect x="0" y="1" width="21" height="10" rx="3" fill="none" stroke="#fff" stroke-width="1.2"/><rect x="2" y="3" width="14" height="6" rx="1.5"/><path d="M23 4v4a2.2 2.2 0 000-4z"/></svg>
+            </span>
+          </div>
+          <p class="screen-date">Tuesday · July 7</p>
+          <h2 class="screen-title">Your stack</h2>
+
+          <div class="score-card">
+            <svg class="ring" viewBox="0 0 80 80" aria-hidden="true">
+              <circle class="track" cx="40" cy="40" r="34"/>
+              <circle class="prog" cx="40" cy="40" r="34" transform="rotate(-90 40 40)"/>
+              <text x="40" y="49" text-anchor="middle">72</text>
+            </svg>
+            <div class="score-meta">
+              <span class="score-label">Stack Score</span>
+              <span class="score-delta">▲ +4 this week</span>
+              <span class="streak">
+                <svg viewBox="0 0 14 17" aria-hidden="true"><path d="M7.5.3c.7 2.6-.6 3.9-.6 5.5 0 .9.6 1.7 1.7 1.7 1 0 1.7-.9 1.7-2.1 1.6 1.3 3 3.3 3 5.6 0 3.4-2.8 6-6.3 6S.7 14.4.7 11c0-3.7 3.6-5.3 6.8-10.7z"/></svg>
+                12-day streak
+              </span>
+            </div>
+          </div>
+
+          <div class="goal-chip">
+            <div class="gc-top">
+              <span class="gc-name">First investment</span>
+              <span class="gc-label">Goal · 45%</span>
+            </div>
+            <div class="goal-bar"><i></i></div>
+          </div>
+
+          <p class="steps-label">Today's steps</p>
+          <div class="step done">
+            <span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>
+            <div class="step-body">
+              <p class="step-title">Open a brokerage account</p>
+              <span class="step-meta"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 4 min video</span>
+            </div>
+          </div>
+          <div class="step done">
+            <span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>
+            <div class="step-body">
+              <p class="step-title">Index funds, in plain English</p>
+              <span class="step-meta"><svg viewBox="0 0 24 24"><path d="M4 3h12l4 4v14H4V3zm2 2v14h12V8h-3V5H6z"/></svg> 3 min read</span>
+            </div>
+          </div>
+          <div class="step">
+            <span class="tick" aria-hidden="true"></span>
+            <div class="step-body">
+              <p class="step-title">Set up a €25 auto-invest</p>
+              <span class="step-meta"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 2 min video</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS BAR ============ -->
+<section class="stats" aria-label="Highlights">
+  <div class="container stats-row reveal" data-reveal>
+    <span class="stat"><i aria-hidden="true"></i>Bite-sized steps</span>
+    <span class="stat"><i aria-hidden="true"></i>Hand-picked videos &amp; articles</span>
+    <span class="stat stat-azure"><i aria-hidden="true"></i>A few minutes a day</span>
+    <span class="stat"><i aria-hidden="true"></i>Build a real streak</span>
+  </div>
+</section>
+
+<!-- ============ STATEMENT ============ -->
+<section class="statement">
+  <div class="container reveal" data-reveal>
+    <span class="eyebrow">The Stacked way</span>
+    <blockquote>Wealth isn't built in a weekend. It's built in <em>small steps</em>, done consistently.</blockquote>
+    <p>A few minutes a day is all it takes to build real momentum with your money.</p>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="how" id="how">
+  <div class="container">
+    <div class="section-head reveal" data-reveal>
+      <span class="eyebrow">How it works</span>
+      <h2 class="h2">Three steps. That's the whole system.</h2>
+      <p>Most financial advice tells you what to do. Stacked actually gets you to do it.</p>
+    </div>
+    <div class="how-grid">
+      <article class="how-card reveal" data-reveal>
+        <span class="how-num">Step 01</span>
+        <h3 class="h3">Pick a goal</h3>
+        <p>Saving smarter, building an income stream, or making your first investment. Choose the one that matters to you right now.</p>
+        <span class="how-check lime"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M17 9l-6.5 6.5L7 12"/></svg>One goal, zero overwhelm</span>
+      </article>
+      <article class="how-card reveal" data-reveal style="--d:.1s">
+        <span class="how-num">Step 02</span>
+        <h3 class="h3">Follow small steps</h3>
+        <p>Stacked breaks your goal into small, doable actions. Each one comes with hand-picked videos and articles — no endless searching.</p>
+        <span class="how-check lime"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M17 9l-6.5 6.5L7 12"/></svg>Minutes, not weekends</span>
+      </article>
+      <article class="how-card reveal" data-reveal style="--d:.2s">
+        <span class="how-num">Step 03</span>
+        <h3 class="h3">Keep the streak</h3>
+        <p>Check off actions, watch your Stack Score climb, and keep your streak alive. Consistency does the heavy lifting.</p>
+        <span class="how-check lime"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11"/><path d="M17 9l-6.5 6.5L7 12"/></svg>Progress you can feel</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="section-head reveal" data-reveal>
+      <span class="eyebrow">Features</span>
+      <h2 class="h2">Built to be followed, not just downloaded.</h2>
+    </div>
+
+    <!-- 1. Personalised plan -->
+    <div class="feature-row">
+      <div class="feature-copy reveal" data-reveal>
+        <span class="eyebrow">Your plan</span>
+        <h3 class="h2">A personalised plan you'll actually follow</h3>
+        <p class="body-copy">Tell Stacked what matters — a safety net, a side income, your first investment — and get a plan built from small wins, not homework.</p>
+        <ul class="feature-list">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Goals broken into weekly stacks</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Adapts to your pace, never guilt-trips</li>
+        </ul>
+      </div>
+      <div class="feature-panel panel-sage reveal" data-reveal style="--d:.1s">
+        <div class="mini" role="img" aria-label="App screen: a savings plan with Week 1 complete, Week 2 in progress, and Week 3 upcoming.">
+          <p class="mini-label">Your plan</p>
+          <p class="mini-title">Save smarter</p>
+          <div class="mini-row">
+            <span class="wk-dot done" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>
+            <div class="txt"><p class="t1">Week 1 · Foundations</p><p class="t2">5 of 5 steps done</p></div>
+            <span class="mini-badge sage">Done</span>
+          </div>
+          <div class="mini-row">
+            <span class="wk-dot now" aria-hidden="true"><i></i></span>
+            <div class="txt"><p class="t1">Week 2 · Automate savings</p><p class="t2">2 of 5 steps done</p></div>
+            <span class="mini-badge">Now</span>
+          </div>
+          <div class="mini-row">
+            <span class="wk-dot" aria-hidden="true"></span>
+            <div class="txt"><p class="t1">Week 3 · Cut the leaks</p><p class="t2">Starts Monday</p></div>
+          </div>
+          <div class="mini-row">
+            <span class="wk-dot" aria-hidden="true"></span>
+            <div class="txt"><p class="t1">Week 4 · Grow the gap</p><p class="t2">Upcoming</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Bite-sized daily actions -->
+    <div class="feature-row">
+      <div class="feature-copy reveal" data-reveal>
+        <span class="eyebrow">Daily actions</span>
+        <h3 class="h2">Bite-sized actions that fit your day</h3>
+        <p class="body-copy">Every step takes minutes, not weekends. Bite-sized, motivating, and impossible to overthink — do one with your morning coffee.</p>
+        <ul class="feature-list">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>One clear action per day</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>2–5 minutes, start to done</li>
+        </ul>
+      </div>
+      <div class="feature-panel panel-ink reveal" data-reveal style="--d:.1s">
+        <div class="mini" role="img" aria-label="App screen: today's action, “Set up a $25 weekly auto-transfer”, a three-minute task with a Mark as done button.">
+          <p class="mini-label">Today's action</p>
+          <p class="mini-title">Tuesday, July 7</p>
+          <div class="mini-action">
+            <p class="t1">Set up a €25 weekly auto-transfer</p>
+            <p class="t2">3 min · Goal: Save smarter</p>
+            <span class="mini-btn">Mark as done</span>
+          </div>
+          <div class="mini-row">
+            <span class="play-thumb" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            <div class="txt"><p class="t1">Why automation beats willpower</p><p class="t2">Watch · 4 min</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Curated resources -->
+    <div class="feature-row">
+      <div class="feature-copy reveal" data-reveal>
+        <span class="eyebrow">Curated learning</span>
+        <h3 class="h2">The best resources, already picked</h3>
+        <p class="body-copy">Each step comes with hand-picked videos and articles from creators who explain money clearly. No two-hour rabbit holes. No endless searching.</p>
+        <ul class="feature-list">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Curated by humans, not algorithms</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Matched to the exact step you're on</li>
+        </ul>
+      </div>
+      <div class="feature-panel panel-light reveal" data-reveal style="--d:.1s">
+        <div class="mini" role="img" aria-label="App screen: a list of hand-picked resources — two short videos and one article — for the current step.">
+          <p class="mini-label">For this step</p>
+          <p class="mini-title">Hand-picked for you</p>
+          <div class="mini-row">
+            <span class="play-thumb" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            <div class="txt"><p class="t1">Emergency funds, explained simply</p><p class="t2">Video · 5 min</p></div>
+          </div>
+          <div class="mini-row">
+            <span class="play-thumb" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5V4zm3 4h8M8 12h8M8 16h5" stroke="#5DA074" stroke-width="2" fill="none" stroke-linecap="round"/></svg></span>
+            <div class="txt"><p class="t1">The 50/30/20 rule in practice</p><p class="t2">Article · 3 min</p></div>
+          </div>
+          <div class="mini-row">
+            <span class="play-thumb" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            <div class="txt"><p class="t1">Pick a high-yield account</p><p class="t2">Video · 4 min</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Stack Score & streaks -->
+    <div class="feature-row">
+      <div class="feature-copy reveal" data-reveal>
+        <span class="eyebrow">Momentum</span>
+        <h3 class="h2">Stack Score &amp; streaks</h3>
+        <p class="body-copy">Check off actions and watch your Stack Score climb. Your streak keeps you honest — and quietly proud. Progress you can feel, day after day.</p>
+        <ul class="feature-list">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>One number that tracks your momentum</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Streaks that reward showing up</li>
+        </ul>
+      </div>
+      <div class="feature-panel panel-deep reveal" data-reveal style="--d:.1s">
+        <div class="mini" role="img" aria-label="App screen: a Stack Score of 84, a weekly progress chart, and a seven-day streak row with today marked by a flame.">
+          <p class="mini-label">Momentum</p>
+          <p class="mini-title">Stack Score · 84</p>
+          <div class="mini-bars" aria-hidden="true">
+            <i class="f" style="height:38%"></i><i class="f" style="height:52%"></i><i style="height:30%"></i><i class="f" style="height:64%"></i><i class="f" style="height:74%"></i><i class="f" style="height:86%"></i><i class="f" style="height:100%"></i>
+          </div>
+          <div class="mini-week" aria-hidden="true">
+            <span class="day on"><i></i>M</span>
+            <span class="day on"><i></i>T</span>
+            <span class="day on"><i></i>W</span>
+            <span class="day on"><i></i>T</span>
+            <span class="day on"><i></i>F</span>
+            <span class="day on"><i></i>S</span>
+            <span class="day today"><i><svg viewBox="0 0 14 17"><path d="M7.5.3c.7 2.6-.6 3.9-.6 5.5 0 .9.6 1.7 1.7 1.7 1 0 1.7-.9 1.7-2.1 1.6 1.3 3 3.3 3 5.6 0 3.4-2.8 6-6.3 6S.7 14.4.7 11c0-3.7 3.6-5.3 6.8-10.7z"/></svg></i>S</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="section-head reveal" data-reveal>
+      <span class="eyebrow">Pricing</span>
+      <h2 class="h2">Simple pricing. Free week to start.</h2>
+      <p>Every plan begins with 7 days free. No pressure — cancel anytime.</p>
+    </div>
+    <div class="price-grid">
+      <article class="price-card price-week reveal" data-reveal>
+        <h3 class="plan-name">Weekly</h3>
+        <p class="plan-price">€3.99<span> / week</span></p>
+        <p class="plan-sub">Flexible — pay as you go.</p>
+        <ul class="plan-list">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>All goals &amp; custom stacks</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>The full curated library</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Stack Score &amp; streaks</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Cancel anytime, in two taps</li>
+        </ul>
+        <a class="btn btn-outline-ink" href="#download">Choose weekly</a>
+      </article>
+      <article class="price-card price-year reveal" data-reveal style="--d:.12s">
+        <span class="badge">Best value</span>
+        <h3 class="plan-name">Annual</h3>
+        <p class="plan-price">€39.99<span> / year</span></p>
+        <p class="plan-sub">Works out to about €0.77 a week.</p>
+        <ul class="plan-list">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Everything in Weekly</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Save over 80% vs weekly</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>One payment, a year of momentum</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Lock in today's price</li>
+        </ul>
+        <a class="btn btn-white" href="#download">Start your free week</a>
+      </article>
+    </div>
+    <p class="price-note">Every plan starts with a 7-day free trial. Cancel anytime in two taps. No hard feelings.</p>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="testimonials" aria-label="What people say">
+  <div class="container">
+    <div class="section-head reveal" data-reveal>
+      <span class="eyebrow">Stackers say</span>
+      <h2 class="h2">Small steps, real results.</h2>
+    </div>
+    <div class="testi-grid">
+      <article class="testi-card reveal" data-reveal>
+        <span class="testi-stars" aria-label="5 out of 5 stars">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+        </span>
+        <blockquote>“I've read a dozen finance books. Stacked is the first thing that got me to actually open a retirement account.”</blockquote>
+        <div class="testi-who">
+          <span class="avatar" aria-hidden="true">MK</span>
+          <div><p class="name">Maya K.</p><p class="role">Goal: first investment</p></div>
+        </div>
+      </article>
+      <article class="testi-card reveal" data-reveal style="--d:.08s">
+        <span class="testi-stars" aria-label="5 out of 5 stars">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+        </span>
+        <blockquote>“Five minutes with my coffee. Sixty-day streak. My emergency fund is finally real.”</blockquote>
+        <div class="testi-who">
+          <span class="avatar alt" aria-hidden="true">DR</span>
+          <div><p class="name">Devon R.</p><p class="role">Goal: save smarter</p></div>
+        </div>
+      </article>
+      <article class="testi-card reveal" data-reveal style="--d:.16s">
+        <span class="testi-stars" aria-label="5 out of 5 stars">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+        </span>
+        <blockquote>“It's like Duolingo for money — bite-sized, motivating, and impossible to overthink.”</blockquote>
+        <div class="testi-who">
+          <span class="avatar" aria-hidden="true">PS</span>
+          <div><p class="name">Priya S.</p><p class="role">Goal: income stream</p></div>
+        </div>
+      </article>
+      <article class="testi-card reveal" data-reveal style="--d:.24s">
+        <span class="testi-stars" aria-label="5 out of 5 stars">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+        </span>
+        <blockquote>“No jargon, no guilt. Just the next small step, every day.”</blockquote>
+        <div class="testi-who">
+          <span class="avatar alt" aria-hidden="true">SL</span>
+          <div><p class="name">Sam L.</p><p class="role">Goal: save smarter</p></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-head reveal" data-reveal>
+      <span class="eyebrow">FAQ</span>
+      <h2 class="h2">Good questions.</h2>
+    </div>
+    <div class="faq-wrap reveal" data-reveal>
+
+      <div class="faq-item">
+        <h3><button class="faq-q" id="faq-q1" aria-expanded="false" aria-controls="faq-a1">
+          What is Stacked?
+          <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button></h3>
+        <div class="faq-a" id="faq-a1" role="region" aria-labelledby="faq-q1">
+          <div class="faq-a-inner"><p>Stacked is an iOS app that turns money goals into daily habits. You pick a goal — saving smarter, building an income stream, or making your first investment — and Stacked breaks it into small, doable steps with hand-picked videos and articles attached to each one.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <h3><button class="faq-q" id="faq-q2" aria-expanded="false" aria-controls="faq-a2">
+          Do I need any money experience?
+          <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button></h3>
+        <div class="faq-a" id="faq-a2" role="region" aria-labelledby="faq-q2">
+          <div class="faq-a-inner"><p>None at all. Every plan starts from the basics, and every resource is chosen for how clearly it explains things. No jargon. No overwhelm. No pressure.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <h3><button class="faq-q" id="faq-q3" aria-expanded="false" aria-controls="faq-a3">
+          How much time does it take?
+          <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button></h3>
+        <div class="faq-a" id="faq-a3" role="region" aria-labelledby="faq-q3">
+          <div class="faq-a-inner"><p>Most steps take two to five minutes. A few minutes a day is all it takes to build real momentum with your money — the point is consistency, not marathon sessions.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <h3><button class="faq-q" id="faq-q4" aria-expanded="false" aria-controls="faq-a4">
+          How much does Stacked cost?
+          <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button></h3>
+        <div class="faq-a" id="faq-a4" role="region" aria-labelledby="faq-q4">
+          <div class="faq-a-inner"><p>Stacked is €3.99 a week, or €39.99 a year — that works out to about €0.77 a week. Every plan starts with a 7-day free trial, so you can try the whole app before paying anything. Cancel anytime in two taps.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <h3><button class="faq-q" id="faq-q5" aria-expanded="false" aria-controls="faq-a5">
+          Is this financial advice?
+          <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button></h3>
+        <div class="faq-a" id="faq-a5" role="region" aria-labelledby="faq-q5">
+          <div class="faq-a-inner"><p>No. Stacked is an educational habit app — it helps you learn and act at your own pace, but it doesn't give personalised financial advice or manage your money. Your accounts stay yours.</p></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" id="download">
+  <div class="container">
+    <div class="footer-cta reveal" data-reveal>
+      <img class="footer-mascot" src="appicon.png" alt="" width="72" height="72">
+      <h2>Start today<span>.</span></h2>
+      <p class="lead" style="margin-inline:auto">Start with a free week. A few minutes a day. Your future self says thanks.</p>
+      <div class="store-btns">
+        <a class="store-btn" href="#" aria-label="Download on the App Store">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.365 12.44c-.02-2.02 1.65-2.99 1.72-3.04-.94-1.37-2.4-1.56-2.92-1.58-1.24-.13-2.42.73-3.05.73-.63 0-1.6-.71-2.63-.69-1.35.02-2.6.79-3.3 2-1.41 2.44-.36 6.05 1.01 8.03.67.97 1.47 2.06 2.52 2.02 1.01-.04 1.39-.65 2.61-.65 1.22 0 1.56.65 2.63.63 1.09-.02 1.78-.99 2.44-1.96.77-1.12 1.09-2.21 1.11-2.27-.02-.01-2.12-.81-2.14-3.22zM14.3 5.06c.56-.68.94-1.62.83-2.56-.81.03-1.79.54-2.37 1.22-.52.6-.97 1.56-.85 2.48.9.07 1.82-.46 2.39-1.14z"/></svg>
+          <span class="sb-txt"><span class="sb-small">Download on the</span><span class="sb-big">App Store</span></span>
+        </a>
+        <a class="store-btn" href="#" aria-label="Get it on Google Play">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.1 2.3c-.4.2-.6.6-.6 1.1v17.2c0 .5.2.9.6 1.1l9.6-9.7-9.6-9.7zm11 8.3l-2.5-2.5-7.2-7.3c.2 0 .5 0 .7.2l11.3 6.4-2.3 3.2zm-2.5 4.3l2.5-2.5 2.3 3.2-11.3 6.4c-.2.1-.5.2-.7.2l7.2-7.3zm7.6-4.3l-2.7-1.5-2.6 2.9 2.6 2.9 2.7-1.5c.9-.5.9-2.3 0-2.8z"/></svg>
+          <span class="sb-txt"><span class="sb-small">Get it on</span><span class="sb-big">Google Play</span></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <a href="#top" class="wordmark" aria-label="Stacked — back to top">
+        <img src="appicon.png" alt="" width="34" height="34">
+        Stacked
+      </a>
+      <nav class="footer-links" aria-label="Legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Support</a>
+      </nav>
+      <div class="socials">
+        <a href="#" aria-label="Stacked on X">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23.3 22h-6.3l-4.9-6.4L6.5 22H3.4l7.3-8.3L1 2h6.5l4.4 5.9L18.9 2zm-1.1 18.1h1.7L6.6 3.8H4.8l13 16.3z"/></svg>
+        </a>
+        <a href="#" aria-label="Stacked on Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.2-.1 1.6-.1 4.8-.1zm0 2c-3.1 0-3.5 0-4.7.1-1.1.1-1.5.2-1.7.3-.4.2-.7.4-1 .7-.3.3-.5.6-.7 1-.1.2-.2.6-.3 1.7-.1 1.2-.1 1.6-.1 4.7s0 3.5.1 4.7c.1 1.1.2 1.5.3 1.7.2.4.4.7.7 1 .3.3.6.5 1 .7.2.1.6.2 1.7.3 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.5-.2 1.7-.3.4-.2.7-.4 1-.7.3-.3.5-.6.7-1 .1-.2.2-.6.3-1.7.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1.1-.2-1.5-.3-1.7-.2-.4-.4-.7-.7-1-.3-.3-.6-.5-1-.7-.2-.1-.6-.2-1.7-.3-1.2-.1-1.6-.1-4.7-.1zm0 3.3a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5zm4.7-3.4a1.1 1.1 0 110 2.2 1.1 1.1 0 010-2.2z"/></svg>
+        </a>
+        <a href="#" aria-label="Stacked on TikTok">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h3.1c.2 1.8 1.2 3.6 3.3 3.9v3.1c-1.3 0-2.5-.4-3.6-1v7.3c0 4.1-2.9 6.7-6.4 6.7-3.4 0-6-2.6-6-5.9 0-3.4 2.7-6 6.2-6 .3 0 .7 0 1 .1v3.2c-.3-.1-.6-.2-1-.2-1.6 0-2.9 1.3-2.9 2.9 0 1.6 1.3 2.8 2.8 2.8 1.7 0 3-1.3 3-3.2L16.6 2z"/></svg>
+        </a>
+      </div>
+      <div class="footer-legal">
+        <span>© 2026 Stacked Money, Inc. All rights reserved.</span>
+        <p>Stacked is an educational app. It doesn't provide personalised financial advice or manage your money.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<script>
+(function(){
+  'use strict';
+
+  /* Sticky nav background on scroll */
+  var nav = document.getElementById('siteNav');
+  var onScroll = function(){
+    nav.classList.toggle('scrolled', window.scrollY > 24);
+  };
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* Mobile menu */
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  var closeMenu = function(){
+    nav.classList.remove('nav-open');
+    toggle.setAttribute('aria-expanded','false');
+    toggle.setAttribute('aria-label','Open menu');
+  };
+  toggle.addEventListener('click', function(){
+    var open = nav.classList.toggle('nav-open');
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  links.addEventListener('click', function(e){
+    if (e.target.closest('a')) closeMenu();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && nav.classList.contains('nav-open')){
+      closeMenu(); toggle.focus();
+    }
+  });
+
+  /* Scroll reveal */
+  var revealEls = document.querySelectorAll('[data-reveal]');
+  revealEls.forEach(function(el){ el.classList.add('reveal'); });
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.15, rootMargin:'0px 0px -40px 0px'});
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* FAQ accordion (one open at a time, keyboard-native buttons) */
+  var items = Array.prototype.slice.call(document.querySelectorAll('.faq-item'));
+  items.forEach(function(item){
+    var btn = item.querySelector('.faq-q');
+    btn.addEventListener('click', function(){
+      var isOpen = item.classList.contains('open');
+      items.forEach(function(other){
+        other.classList.remove('open');
+        other.querySelector('.faq-q').setAttribute('aria-expanded','false');
+      });
+      if (!isOpen){
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
